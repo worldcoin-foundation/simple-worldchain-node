@@ -1,23 +1,26 @@
 #!/bin/sh
 set -e
 
-# Init genesis if custom chain
-if [ -n "${IS_CUSTOM_CHAIN}" ]; then
-  geth init --datadir="$BEDROCK_DATADIR" /chainconfig/genesis.json
+# Determine syncmode based on GETH_NODE_TYPE
+if [ -z "$GETH_SYNCMODE" ]; then
+  if [ "$GETH_NODE_TYPE" = "full" ]; then
+    export GETH_SYNCMODE="snap"
+  else
+    export GETH_SYNCMODE="full"
+  fi
 fi
 
-# Determine syncmode based on NODE_TYPE
-if [ -z "$OP_GETH__SYNCMODE" ]; then
-  if [ "$NODE_TYPE" = "full" ]; then
-    export OP_GETH__SYNCMODE="snap"
-  else
-    export OP_GETH__SYNCMODE="full"
-  fi
+# Determine holocene timestamp based on mainnet or testnet
+# Remove this block and --override.holocene arg after holocene timestamp merged into superchain registry and new version of op-geth released
+if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
+  export HOLOCENE_TIMESTAMP=1738238400
+elif [ "$NETWORK_NAME" = "worldchain-sepolia" ]; then
+  export HOLOCENE_TIMESTAMP=1737633600
 fi
 
 # Start op-geth.
 exec geth \
-  --datadir="$BEDROCK_DATADIR" \
+  --datadir=/data \
   --http \
   --http.corsdomain="*" \
   --http.vhosts="*" \
@@ -33,17 +36,17 @@ exec geth \
   --metrics.influxdb \
   --metrics.influxdb.endpoint=http://influxdb:8086 \
   --metrics.influxdb.database=opgeth \
-  --syncmode="$OP_GETH__SYNCMODE" \
-  --gcmode="$NODE_TYPE" \
+  --syncmode="$GETH_SYNCMODE" \
+  --gcmode="$GETH_NODE_TYPE" \
   --authrpc.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
   --authrpc.jwtsecret=/shared/jwt.txt \
-  --rollup.sequencerhttp="$BEDROCK_SEQUENCER_HTTP" \
+  --rollup.sequencerhttp="$SEQUENCER_HTTP" \
   --rollup.disabletxpoolgossip=true \
-  --port="${PORT__OP_GETH_P2P:-39393}" \
-  --discovery.port="${PORT__OP_GETH_P2P:-39393}" \
+  --port="${PORT__EXECUTION_P2P:-39393}" \
+  --discovery.port="${PORT__EXECUTION_P2P:-39393}" \
   --db.engine=pebble \
   --state.scheme=hash \
   --op-network="$NETWORK_NAME" \
-  $EXTENDED_ARG $@
+  --override.holocene="$HOLOCENE_TIMESTAMP"

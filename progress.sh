@@ -7,7 +7,7 @@ if [ -f .env ]; then
   export $(cat .env | grep -v '#' | sed 's/\r$//' | awk '/=/ {print $1}' )
 fi
 
-export ETH_RPC_URL=http://localhost:${PORT__OP_GETH_HTTP:-9993}
+export ETH_RPC_URL=http://localhost:${PORT__EXECUTION_HTTP:-9993}
 # Cast is provided by Foundry: https://getfoundry.sh/.
 # Run `pnpm install:foundry` in the optimism repo root.
 CHAIN_ID=`cast chain-id`

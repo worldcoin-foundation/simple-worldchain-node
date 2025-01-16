@@ -6,18 +6,18 @@ services:
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-geth.sh
     env_file:
-      - ./envs/${NETWORK_NAME}/op-geth.env
+      - ./envs/${NETWORK_NAME}/execution.env
       - .env
     volumes:
       - ./envs/${NETWORK_NAME}/config:/chainconfig
       - ./scripts/:/scripts
       - shared:/shared
-      - op_geth:/geth
+      - op_geth:/data
     ports:
-      - ${PORT__OP_GETH_HTTP:-9993}:8545
-      - ${PORT__OP_GETH_WS:-9994}:8546
-      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/udp
-      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/tcp
+      - ${PORT__EXECUTION_HTTP:-9993}:8545
+      - ${PORT__EXECUTION_WS:-9994}:8546
+      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/udp
+      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/tcp
     extra_hosts:
       - "host.docker.internal:host-gateway"
     profiles: ["geth"]
@@ -28,17 +28,17 @@ services:
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
     ports:
-      - ${PORT__OP_GETH_HTTP:-9993}:8545
-      - ${PORT__OP_GETH_WS:-9994}:8546
-      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/udp
-      - ${PORT__OP_GETH_P2P:-39393}:${PORT__OP_GETH_P2P:-39393}/tcp
+      - ${PORT__EXECUTION_HTTP:-9993}:8545
+      - ${PORT__EXECUTION_WS:-9994}:8546
+      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/udp
+      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/tcp
     volumes:
         - ./envs/${NETWORK_NAME}/config:/chainconfig
         - op_reth:/data
         - ./scripts/:/scripts
         - shared:/shared
     env_file:
-      - ./envs/${NETWORK_NAME}/op-geth.env
+      - ./envs/${NETWORK_NAME}/execution.env
       - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -50,52 +50,47 @@ services:
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-node.sh
     env_file:
-      - ./envs/${NETWORK_NAME}/op-node.env
       - .env
     volumes:
       - ./envs/${NETWORK_NAME}/config:/chainconfig
       - ./scripts/:/scripts
       - shared:/shared
     ports:
-      - ${PORT__OP_NODE_P2P:-9003}:9003/udp
-      - ${PORT__OP_NODE_P2P:-9003}:9003/tcp
-      - ${PORT__OP_NODE_HTTP:-9545}:9545
+      - ${PORT__CONSENSUS_P2P:-9003}:9003/udp
+      - ${PORT__CONSENSUS_P2P:-9003}:9003/tcp
+      - ${PORT__CONSENSUS_HTTP:-9545}:9545
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   prometheus:
-    image: prom/prometheus:${IMAGE_TAG__PROMETHEUS:-latest}
+    image: prom/prometheus:latest
     restart: unless-stopped
     env_file:
       - .env
     volumes:
       - ./docker/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
-    ports:
-      - ${PORT__PROMETHEUS:-9090}:9090
 
   grafana:
-    image: grafana/grafana:${IMAGE_TAG__GRAFANA:-9.3.0}
+    image: grafana/grafana:9.3.0
     restart: unless-stopped
     env_file:
       -  ./envs/common/grafana.env
     volumes:
       - ./docker/grafana/provisioning/:/etc/grafana/provisioning/:ro
-      - ./docker/grafana/dashboards/simple_node_dashboard.json:/var/lib/grafana/dashboards/simple_node_dashboard.json
+      - ./docker/grafana/dashboards:/var/lib/grafana/dashboards
       - grafana_data:/var/lib/grafana
     ports:
       - ${PORT__GRAFANA:-3000}:3000
 
   influxdb:
-    image: influxdb:${IMAGE_TAG__INFLUXDB:-1.8}
+    image: influxdb:1.8
     restart: unless-stopped
     env_file:
       - ./envs/common/influxdb.env
     volumes:
       - ./docker/influxdb/influx_init.iql:/docker-entrypoint-initdb.d/influx_init.iql
       - influxdb_data:/var/lib/influxdb
-    ports:
-      - ${PORT__INFLUXDB:-8086}:8086
 
 volumes:
   prometheus_data:
@@ -104,4 +99,3 @@ volumes:
   shared:
   op_geth:
   op_reth:
-  torrent_downloads:
