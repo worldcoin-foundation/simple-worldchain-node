@@ -25,6 +25,7 @@ exec op-node \
   --metrics.port=7300 \
   --syncmode=execution-layer \
   --network=$NETWORK_NAME \
+  --p2p.useragent=worldchain \
   --rollup.load-protocol-versions=true \
   --rollup.halt=major \
   --override.holocene="$HOLOCENE_TIMESTAMP"

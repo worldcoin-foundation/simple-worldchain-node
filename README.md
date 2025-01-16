@@ -97,7 +97,7 @@ Open `.env` with your editor of choice
 * **COMPOSE_PROFILES** - Choose which Execution Client you want to run:
     * `geth` - op-geth, the default option.
     * `reth` - op-reth, an alternate Execution Client focused on speed. Only usable as an Archive node, but uses less storage than `geth`.
-* **NODE_TYPE** - Choose the type of node you want to run (only applicable to `geth`):
+* **GETH_NODE_TYPE** - Choose the type of node you want to run (only applicable to `geth`):
     * `full` (Full node) - A Full node contains a few recent blocks without historical states.
     * `archive` (Archive node) - An Archive node stores the complete history of the blockchain, including historical states.
 * **L1_RPC_ENDPOINT** - Specify the endpoint for the RPC of Layer 1 (e.g., Ethereum mainnet). For instance, you can use the free plan of Alchemy for the Ethereum mainnet.
@@ -120,7 +120,6 @@ Open `.env` with your editor of choice
     * Unspecified - Use default snap sync for full node and full sync for archive node
     * `snap` - Snap Sync (Default)
     * `full` - Full Sync (For archive node, not recommended for full node)
-* **IMAGE_TAG__[...]** - Use custom docker image for specified components.
 * **PORT__[...]** - Use custom port for specified components.
 
 ## Operating the Node
