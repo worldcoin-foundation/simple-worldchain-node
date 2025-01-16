@@ -1,11 +1,6 @@
 #!/bin/sh
 set -e
 
-# Init genesis if custom chain
-if [ -n "${IS_CUSTOM_CHAIN}" ]; then
-  geth init --datadir="$BEDROCK_DATADIR" /chainconfig/genesis.json
-fi
-
 # Determine syncmode based on NODE_TYPE
 if [ -z "$OP_GETH__SYNCMODE" ]; then
   if [ "$NODE_TYPE" = "full" ]; then
@@ -55,4 +50,3 @@ exec geth \
   --state.scheme=hash \
   --op-network="$NETWORK_NAME" \
   --override.holocene="$HOLOCENE_TIMESTAMP"
-  $EXTENDED_ARG $@
