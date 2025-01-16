@@ -2,11 +2,11 @@
 set -e
 
 # Determine syncmode based on NODE_TYPE
-if [ -z "$OP_GETH__SYNCMODE" ]; then
+if [ -z "$SYNCMODE" ]; then
   if [ "$NODE_TYPE" = "full" ]; then
-    export OP_GETH__SYNCMODE="snap"
+    export SYNCMODE="snap"
   else
-    export OP_GETH__SYNCMODE="full"
+    export SYNCMODE="full"
   fi
 fi
 
@@ -36,7 +36,7 @@ exec geth \
   --metrics.influxdb \
   --metrics.influxdb.endpoint=http://influxdb:8086 \
   --metrics.influxdb.database=opgeth \
-  --syncmode="$OP_GETH__SYNCMODE" \
+  --syncmode="$SYNCMODE" \
   --gcmode="$NODE_TYPE" \
   --authrpc.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
