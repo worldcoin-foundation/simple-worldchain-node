@@ -116,7 +116,7 @@ Open `.env` with your editor of choice
 
 ### Optional configurations
 
-* **SYNCMODE** - Specify sync mode for the execution client
+* **GETH_SYNCMODE** - Specify sync mode for the execution client
     * Unspecified - Use default snap sync for full node and full sync for archive node
     * `snap` - Snap Sync (Default)
     * `full` - Full Sync (For archive node, not recommended for full node)
@@ -225,4 +225,4 @@ Navigate over to `Dashboards > Manage > Simple Node Dashboard` to see the dashbo
 If you experience "walking back L1Block with curr=0x0000...:0 next=0x0000...:0" for a long time after the Ecotone upgrade, consider these fixes:
 1. Wait for a few minutes. This issue usually resolves itself after some time.
 2. Restart docker compose: `docker compose down` and `docker compose up -d --build`
-3. If it's still not working, try setting `SYNCMODE=full` in .env and restart docker compose
+3. If it's still not working, try setting `GETH_SYNCMODE=full` in .env and restart docker compose

@@ -2,11 +2,11 @@
 set -e
 
 # Determine syncmode based on GETH_NODE_TYPE
-if [ -z "$SYNCMODE" ]; then
+if [ -z "$GETH_SYNCMODE" ]; then
   if [ "$GETH_NODE_TYPE" = "full" ]; then
-    export SYNCMODE="snap"
+    export GETH_SYNCMODE="snap"
   else
-    export SYNCMODE="full"
+    export GETH_SYNCMODE="full"
   fi
 fi
 
