@@ -1,10 +1,12 @@
 #!/bin/sh
 set -e
 
-if [ -n "${IS_CUSTOM_CHAIN}" ]; then
-  export EXTENDED_ARG="${EXTENDED_ARG:-} --rollup.config=/chainconfig/rollup.json"
-else
-  export EXTENDED_ARG="${EXTENDED_ARG:-} --network=$NETWORK_NAME --rollup.load-protocol-versions=true --rollup.halt=major"
+# Determine holocene timestamp based on mainnet or testnet
+# Remove this block and --override.holocene arg after holocene timestamp merged into superchain registry and new version of op-geth released
+if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
+  export HOLOCENE_TIMESTAMP=1738238400
+elif [ "$NETWORK_NAME" = "worldchain-sepolia" ]; then
+  export HOLOCENE_TIMESTAMP=1737633600
 fi
 
 # Start op-node.
@@ -22,4 +24,7 @@ exec op-node \
   --metrics.addr=0.0.0.0 \
   --metrics.port=7300 \
   --syncmode=execution-layer \
-  $EXTENDED_ARG $@
+  --network=$NETWORK_NAME \
+  --rollup.load-protocol-versions=true \
+  --rollup.halt=major \
+  --override.holocene="$HOLOCENE_TIMESTAMP"
