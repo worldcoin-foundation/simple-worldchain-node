@@ -4,9 +4,6 @@ A simple docker compose script for launching full / archive node for World Chain
 
 > Forked from [simple-optimism-node](https://github.com/smartcontracts/simple-optimism-node).
 
-<!-- ## Use cases
-* Docker compose to launch World Chain mainnet full / archive node -->
-
 ## Recommended Hardware
 
 ### World Chain Mainnet
@@ -15,11 +12,11 @@ A simple docker compose script for launching full / archive node for World Chain
 - 2 TB SSD (NVME Recommended)
 - 100mb/s+ Download
 
-<!-- ### World Chain Sepolia
+### World Chain Sepolia
 
 - 16GB+ RAM
 - 500 GB SSD (NVME Recommended)
-- 100mb/s+ Download -->
+- 100mb/s+ Download
 
 ## Installation and Configuration
 
@@ -32,7 +29,7 @@ A simple docker compose script for launching full / archive node for World Chain
 Note: This command install docker and docker compose for Ubuntu. For windows and mac desktop or laptop, please use Docker Desktop. For other OS, please find instruction in Google.
 
 ```sh
-# Update and upgrade packages
+### Update and upgrade packages
 sudo apt-get update
 sudo apt-get upgrade -y
 
@@ -71,7 +68,7 @@ It should returns an empty container list without having any error. Otherwise, r
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/0xPenryn/simple-worldchain-node.git
+git clone https://github.com/worldcoin-foundation/simple-worldchain-node.git
 cd simple-worldchain-node
 ```
 
@@ -88,10 +85,6 @@ Open `.env` with your editor of choice
 ### Mandatory configurations
 
 * **NETWORK_NAME** - Choose which World Chain network you want to operate on:
-    <!-- * `op-mainnet` - Optimism Mainnet
-    * `op-sepolia` - Optimism Sepolia (Testnet)
-    * `base-mainnet` - Base Mainnet
-    * `base-sepolia` - Base Sepolia (Testnet) -->
     * `worldchain-mainnet` - World Chain Mainnet
     * `worldchain-sepolia` - World Chain Sepolia
 * **COMPOSE_PROFILES** - Choose which Execution Client you want to run:
@@ -107,12 +100,6 @@ Open `.env` with your editor of choice
     * `quicknode` - Quicknode (ETH only)
     * `erigon` - Erigon
     * `basic` - Other providers
-
-<!-- ### OP Mainnet only configurations
-
-* **OP_GETH__HISTORICAL_RPC** - OP Mainnet RPC Endpoint for fetching pre-bedrock historical data
-    * **Recommended:** https://mainnet.optimism.io
-    * Leave blank if you want to self-host pre-bedrock historical node for high-throughput use cases such as subgraph indexing. -->
 
 ### Optional configurations
 
@@ -206,17 +193,18 @@ Hours until sync completed: ...
 
 ### Grafana dashboard
 
-Grafana is exposed at [http://localhost:3000](http://localhost:3000) and comes with one pre-loaded dashboard ("Simple Node Dashboard").
-Simple Node Dashboard includes basic node information and will tell you if your node ever falls out of sync with the reference L2 node or if a state root fault is detected.
+Grafana is exposed at [http://localhost:3000](http://localhost:3000) and comes with two pre-loaded dashboards, one each for `op-geth` and `op-reth`.
+The OP-Geth Dashboard includes basic node information and will tell you if your node ever falls out of sync with the reference L2 node or if a state root fault is detected.
+The OP-Reth Dashboard includes in-depth information about the performance and sync state of `op-reth`.
+
+The following links will take you directly to your dashboard of choice.
+- [OP-Geth Dashboard](http://localhost:3000/d/fNH7uZ97k/op-geth-dashboard)
+- [OP-Reth Dashboard](http://localhost:3000/d/2k8BXz24x/op-reth-dashboard)
 
 Use the following login details to access the dashboard:
 
 - Username: `admin`
 - Password: `worldchain`
-
-Navigate over to `Dashboards > Manage > Simple Node Dashboard` to see the dashboard, see the following gif if you need help:
-
-![metrics dashboard gif](https://user-images.githubusercontent.com/14298799/171476634-0cb84efd-adbf-4732-9c1d-d737915e1fa7.gif)
 
 ## Troubleshooting
 
