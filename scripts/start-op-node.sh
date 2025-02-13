@@ -15,6 +15,8 @@ exec op-node \
   --metrics.enabled \
   --metrics.addr=0.0.0.0 \
   --metrics.port=7300 \
+  --p2p.listen.tcp="${PORT__CONSENSUS_P2P:-9222}" \
+  --p2p.listen.udp="${PORT__CONSENSUS_P2P:-9222}" \
   --syncmode=execution-layer \
   --network=$NETWORK_NAME \
   --p2p.useragent=worldchain \

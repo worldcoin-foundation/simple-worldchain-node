@@ -16,8 +16,8 @@ services:
     ports:
       - ${PORT__EXECUTION_HTTP:-9993}:8545
       - ${PORT__EXECUTION_WS:-9994}:8546
-      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/udp
-      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/tcp
+      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/udp
+      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/tcp
     extra_hosts:
       - "host.docker.internal:host-gateway"
     profiles: ["geth"]
@@ -30,8 +30,8 @@ services:
     ports:
       - ${PORT__EXECUTION_HTTP:-9993}:8545
       - ${PORT__EXECUTION_WS:-9994}:8546
-      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/udp
-      - ${PORT__EXECUTION_P2P:-39393}:${PORT__EXECUTION_P2P:-39393}/tcp
+      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/udp
+      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/tcp
     volumes:
         - ./envs/${NETWORK_NAME}/config:/chainconfig
         - op_reth:/data
@@ -56,8 +56,8 @@ services:
       - ./scripts/:/scripts
       - shared:/shared
     ports:
-      - ${PORT__CONSENSUS_P2P:-9003}:9003/udp
-      - ${PORT__CONSENSUS_P2P:-9003}:9003/tcp
+      - ${PORT__CONSENSUS_P2P:-9222}:9222/udp
+      - ${PORT__CONSENSUS_P2P:-9222}:9222/tcp
       - ${PORT__CONSENSUS_HTTP:-9545}:9545
     extra_hosts:
       - "host.docker.internal:host-gateway"

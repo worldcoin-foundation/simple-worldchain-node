@@ -22,4 +22,4 @@ exec op-reth node \
   --rollup.sequencer-http=$SEQUENCER_HTTP \
   --rollup.disable-tx-pool-gossip \
   --enable-discv5-discovery \
-  --port="${PORT__EXECUTION_P2P:-39393}" \
+  --port="${PORT__EXECUTION_P2P:-30303}" \

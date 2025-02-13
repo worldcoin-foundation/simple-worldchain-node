@@ -36,8 +36,8 @@ exec geth \
   --authrpc.jwtsecret=/shared/jwt.txt \
   --rollup.sequencerhttp="$SEQUENCER_HTTP" \
   --rollup.disabletxpoolgossip=true \
-  --port="${PORT__EXECUTION_P2P:-39393}" \
-  --discovery.port="${PORT__EXECUTION_P2P:-39393}" \
+  --port="${PORT__EXECUTION_P2P:-30303}" \
+  --discovery.port="${PORT__EXECUTION_P2P:-30303}" \
   --db.engine=pebble \
   --state.scheme=hash \
   --op-network="$NETWORK_NAME" \
