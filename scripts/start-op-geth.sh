@@ -10,14 +10,6 @@ if [ -z "$GETH_SYNCMODE" ]; then
   fi
 fi
 
-# Determine holocene timestamp based on mainnet or testnet
-# Remove this block and --override.holocene arg after holocene timestamp merged into superchain registry and new version of op-geth released
-if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
-  export HOLOCENE_TIMESTAMP=1738238400
-elif [ "$NETWORK_NAME" = "worldchain-sepolia" ]; then
-  export HOLOCENE_TIMESTAMP=1737633600
-fi
-
 # Start op-geth.
 exec geth \
   --datadir=/data \
@@ -49,4 +41,3 @@ exec geth \
   --db.engine=pebble \
   --state.scheme=hash \
   --op-network="$NETWORK_NAME" \
-  --override.holocene="$HOLOCENE_TIMESTAMP"
