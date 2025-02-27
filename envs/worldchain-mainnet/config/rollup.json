@@ -13,7 +13,7 @@
       "batcherAddr": "0xdbbe3d8c2d2b22a2611c5a94a9a12c2fcd49eb29",
       "overhead": "0x00000000000000000000000000000000000000000000000000000000000000bc",
       "scalar": "0x00000000000000000000000000000000000000000000000000000000000a6fe0",
-      "gasLimit": 100000000
+      "gasLimit": 30000000
     }
   },
   "block_time": 2,
@@ -32,5 +32,10 @@
   "batch_inbox_address": "0xff00000000000000000000000000000000000480",
   "deposit_contract_address": "0xd5ec14a83b7d95be1e2ac12523e2dee12cbeea6c",
   "l1_system_config_address": "0x6ab0777fd0e609ce58f939a7f70fe41f5aa6300a",
-  "protocol_versions_address": "0x0000000000000000000000000000000000000000"
+  "protocol_versions_address": "0x0000000000000000000000000000000000000000",
+  "chain_op_config": {
+    "eip1559Elasticity": 2,
+    "eip1559Denominator": 50,
+    "eip1559DenominatorCanyon": 250
+  }
 }
