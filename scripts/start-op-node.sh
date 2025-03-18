@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+if [ "$NETWORK_NAME" = "worldchain-sepolia" ]; then
+  export PECTRA_HF_ARG="--override.pectrablobschedule=1742486400"
+fi
+
 # Start op-node.
 exec op-node \
   --l1=$L1_RPC_ENDPOINT \
@@ -22,3 +26,4 @@ exec op-node \
   --p2p.useragent=worldchain \
   --rollup.load-protocol-versions=true \
   --rollup.halt=major \
+  $PECTRA_HF_ARG \
