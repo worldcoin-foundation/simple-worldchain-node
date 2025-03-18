@@ -29,6 +29,7 @@
   "fjord_time": 1721739600,
   "granite_time": 1726570800,
   "holocene_time": 1737633600,
+  "pectra_blob_schedule_time": 1742486400,
   "batch_inbox_address": "0xff00000000000000000000000000000000484752",
   "deposit_contract_address": "0xff6eba109271fe6d4237eeed4bab1dd9a77dd1a4",
   "l1_system_config_address": "0x166f9406e79a656f12f05247fb8f5dfa6155bcbf",
