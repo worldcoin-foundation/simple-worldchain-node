@@ -14,13 +14,13 @@ A simple docker compose script for launching full / archive node for World Chain
 ### World Chain Mainnet
 
 - 16GB+ RAM
-- 2 TB SSD (NVME Recommended)
+- \>4TB SSD (NVME Recommended)
 - 100mb/s+ Download
 
 ### World Chain Sepolia
 
 - 16GB+ RAM
-- 500 GB SSD (NVME Recommended)
+- 1TB SSD (NVME Recommended)
 - 100mb/s+ Download
 
 ## Installation and Configuration
@@ -85,7 +85,7 @@ Make a copy of `.env.example` named `.env`.
 cp .env.example .env
 ```
 
-Open `.env` with your editor of choice
+Open `.env` with your editor of choice.
 
 ### Mandatory configurations
 
@@ -119,10 +119,10 @@ Open `.env` with your editor of choice
 ### Start
 
 ```sh
-docker compose up -d --build
+docker compose up -d
 ```
 
-Will start the node in a detatched shell (`-d`), meaning the node will continue to run in the background. We recommended to add `--build` to make sure that latest changes are being applied.
+Will start the node in a detatched shell (`-d`), meaning the node will continue to run in the background.
 
 ### View logs
 
@@ -164,7 +164,7 @@ Pull the latest updates from GitHub, and Docker Hub and rebuild the container.
 ```sh
 git pull
 docker compose pull
-docker compose up -d --build
+docker compose up -d
 ```
 
 Will upgrade your node with minimal downtime.
