@@ -1,5 +1,7 @@
 # Simple World Chain Node
 
+> Anyone running a World Chain node is encouraged to join this Telegram channel for notifications of required software updates or other relevant information: [World Chain Node Updates Telegram Channel](https://t.me/world_chain_updates)
+
 A simple docker compose script for launching full / archive node for World Chain.
 
 > Forked from [simple-optimism-node](https://github.com/smartcontracts/simple-optimism-node).
