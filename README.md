@@ -4,11 +4,6 @@ A simple docker compose script for launching full / archive node for World Chain
 
 > Forked from [simple-optimism-node](https://github.com/smartcontracts/simple-optimism-node).
 
-> 🚧 Note for upgrading Full Nodes:
->
-> Full Nodes must perform an intermediate software upgrade before upgrading op-geth to v1.101500.0.
-> See the op-geth release notes here for more info: https://github.com/ethereum-optimism/op-geth/releases/tag/v1.101411.8
-
 ## Recommended Hardware
 
 ### World Chain Mainnet
