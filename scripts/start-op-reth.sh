@@ -10,7 +10,6 @@ fi
 
 exec op-reth node \
   --datadir=/data \
-  --log.stdout.format log-fmt \
   --ws \
   --ws.origins="*" \
   --ws.addr=0.0.0.0 \
@@ -28,5 +27,4 @@ exec op-reth node \
   --chain="${CHAIN_NAME}" \
   --rollup.sequencer-http=$SEQUENCER_HTTP \
   --rollup.disable-tx-pool-gossip \
-  --enable-discv5-discovery \
   --port="${PORT__EXECUTION_P2P:-30303}" \
