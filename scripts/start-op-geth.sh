@@ -38,6 +38,4 @@ exec geth \
   --rollup.disabletxpoolgossip=true \
   --port="${PORT__EXECUTION_P2P:-30303}" \
   --discovery.port="${PORT__EXECUTION_P2P:-30303}" \
-  --db.engine=pebble \
-  --state.scheme=hash \
   --op-network="$NETWORK_NAME" \

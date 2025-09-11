@@ -1,9 +1,15 @@
 #!/bin/bash
 set -eu
 
+#set chain name for op-reth config
+if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
+  export CHAIN_NAME="worldchain"
+else
+  export CHAIN_NAME="$NETWORK_NAME"
+fi
+
 exec op-reth node \
   --datadir=/data \
-  --log.stdout.format log-fmt \
   --ws \
   --ws.origins="*" \
   --ws.addr=0.0.0.0 \
@@ -18,8 +24,7 @@ exec op-reth node \
   --authrpc.port=8551 \
   --authrpc.jwtsecret=/shared/jwt.txt \
   --metrics=0.0.0.0:6060 \
-  --chain "/chainconfig/genesis.json" \
+  --chain="${CHAIN_NAME}" \
   --rollup.sequencer-http=$SEQUENCER_HTTP \
   --rollup.disable-tx-pool-gossip \
-  --enable-discv5-discovery \
   --port="${PORT__EXECUTION_P2P:-30303}" \
