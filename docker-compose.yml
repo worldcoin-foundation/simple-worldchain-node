@@ -6,7 +6,6 @@ services:
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-geth.sh
     env_file:
-      - ./envs/${NETWORK_NAME}/execution.env
       - .env
     volumes:
       - ./envs/${NETWORK_NAME}/config:/chainconfig
@@ -38,7 +37,6 @@ services:
         - ./scripts/:/scripts
         - shared:/shared
     env_file:
-      - ./envs/${NETWORK_NAME}/execution.env
       - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"

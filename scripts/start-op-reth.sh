@@ -25,6 +25,5 @@ exec op-reth node \
   --authrpc.jwtsecret=/shared/jwt.txt \
   --metrics=0.0.0.0:6060 \
   --chain="${CHAIN_NAME}" \
-  --rollup.sequencer-http=$SEQUENCER_HTTP \
   --rollup.disable-tx-pool-gossip \
   --port="${PORT__EXECUTION_P2P:-30303}" \
