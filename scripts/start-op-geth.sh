@@ -10,6 +10,14 @@ if [ -z "$GETH_SYNCMODE" ]; then
   fi
 fi
 
+# Determine history.state on GETH_NODE_TYPE
+# Only relevant when using path-based storage
+if [ "$GETH_NODE_TYPE" = "full" ] && [ "$GETH_STATE_SCHEME" != "hash" ] ; then
+  export GETH_HISTORY_STATE="90000"
+else
+  export GETH_HISTORY_STATE="0"
+fi
+
 # Start op-geth.
 exec geth \
   --datadir=/data \
@@ -30,6 +38,8 @@ exec geth \
   --metrics.influxdb.database=opgeth \
   --syncmode="$GETH_SYNCMODE" \
   --gcmode="$GETH_NODE_TYPE" \
+  --state.scheme="$GETH_STATE_SCHEME" \
+  --history.state="$GETH_HISTORY_STATE" \
   --authrpc.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
