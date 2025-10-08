@@ -11,13 +11,13 @@ A simple docker compose script for launching full / archive node for World Chain
 ### World Chain Mainnet
 
 - 16GB+ RAM
-- \>4TB SSD (NVME Recommended)
+- \>16TB SSD (NVME Required)
 - 100mb/s+ Download
 
 ### World Chain Sepolia
 
 - 16GB+ RAM
-- 1TB SSD (NVME Recommended)
+- \>1TB SSD (NVME Highly Recommended)
 - 100mb/s+ Download
 
 ## Installation and Configuration
@@ -109,6 +109,13 @@ Open `.env` with your editor of choice.
     * Unspecified - Use default snap sync for full node and full sync for archive node
     * `snap` - Snap Sync (Default)
     * `full` - Full Sync (For archive node, not recommended for full node)
+* **GETH_STATE_SCHEME** - Specify storage scheme for `op-geth`
+    * `path` - Path-based Storage Scheme (Default)
+        * PBSS is now supported for `op-geth` archive nodes as of v1.101602.0. The `eth_getProof` RPC method is not supported when using PBSS.
+    * `hash` - Hash-based storage (For archive node, not recommended for full node)
+        * Hash-based storage is only recommended when support for the `eth_getProof` RPC method is required.
+> `GETH_STATE_SCHEME` must be set upon first start of your node. Changing this value later will have no effect. Migration from hash- to path-based storage (or vice versa) is not possible, the node must be re-synced from scratch.
+
 * **PORT__[...]** - Use custom port for specified components.
 
 ## Operating the Node
