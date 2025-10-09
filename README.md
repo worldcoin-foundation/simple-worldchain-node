@@ -1,26 +1,23 @@
 # Simple World Chain Node
 
+> Anyone running a World Chain node is encouraged to join this Telegram channel for notifications of required software updates or other relevant information: [World Chain Node Updates Telegram Channel](https://t.me/world_chain_updates)
+
 A simple docker compose script for launching full / archive node for World Chain.
 
 > Forked from [simple-optimism-node](https://github.com/smartcontracts/simple-optimism-node).
-
-> 🚧 Note for upgrading Full Nodes:
->
-> Full Nodes must perform an intermediate software upgrade before upgrading op-geth to v1.101500.0.
-> See the op-geth release notes here for more info: https://github.com/ethereum-optimism/op-geth/releases/tag/v1.101411.8
 
 ## Recommended Hardware
 
 ### World Chain Mainnet
 
 - 16GB+ RAM
-- \>4TB SSD (NVME Recommended)
+- \>16TB SSD (NVME Required)
 - 100mb/s+ Download
 
 ### World Chain Sepolia
 
 - 16GB+ RAM
-- 1TB SSD (NVME Recommended)
+- \>1TB SSD (NVME Highly Recommended)
 - 100mb/s+ Download
 
 ## Installation and Configuration
@@ -112,6 +109,13 @@ Open `.env` with your editor of choice.
     * Unspecified - Use default snap sync for full node and full sync for archive node
     * `snap` - Snap Sync (Default)
     * `full` - Full Sync (For archive node, not recommended for full node)
+* **GETH_STATE_SCHEME** - Specify storage scheme for `op-geth`
+    * `path` - Path-based Storage Scheme (Default)
+        * PBSS is now supported for `op-geth` archive nodes as of v1.101602.0. The `eth_getProof` RPC method is not supported when using PBSS.
+    * `hash` - Hash-based storage (For archive node, not recommended for full node)
+        * Hash-based storage is only recommended when support for the `eth_getProof` RPC method is required.
+> `GETH_STATE_SCHEME` must be set upon first start of your node. Changing this value later will have no effect. Migration from hash- to path-based storage (or vice versa) is not possible, the node must be re-synced from scratch.
+
 * **PORT__[...]** - Use custom port for specified components.
 
 ## Operating the Node
