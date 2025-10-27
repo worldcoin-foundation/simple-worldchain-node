@@ -5,7 +5,7 @@ set -eu
 if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
   export CHAIN_NAME="worldchain"
 else
-  export CHAIN_NAME="$NETWORK_NAME"
+  export CHAIN_NAME="/chainconfig/genesis.json"
 fi
 
 exec op-reth node \
@@ -25,5 +25,6 @@ exec op-reth node \
   --authrpc.jwtsecret=/shared/jwt.txt \
   --metrics=0.0.0.0:6060 \
   --chain="${CHAIN_NAME}" \
+  --rollup.sequencer-http=https://${NETWORK_NAME}-sequencer.g.alchemy.com \
   --rollup.disable-tx-pool-gossip \
   --port="${PORT__EXECUTION_P2P:-30303}" \
