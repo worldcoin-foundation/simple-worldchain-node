@@ -5,7 +5,7 @@ set -eu
 if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
   export CHAIN_NAME="worldchain"
 else
-  export CHAIN_NAME="/chainconfig/genesis.json"
+  export CHAIN_NAME="$NETWORK_NAME"
 fi
 
 exec op-reth node \
