@@ -11,7 +11,7 @@ A simple docker compose script for launching full / archive node for World Chain
 ### World Chain Mainnet
 
 - 16GB+ RAM
-- \>16TB SSD (NVME Required)
+- \>4TB NVMe SSD (Using Path-Based Storage)
 - 100mb/s+ Download
 
 ### World Chain Sepolia
