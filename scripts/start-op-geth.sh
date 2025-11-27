@@ -44,6 +44,7 @@ exec geth \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
   --authrpc.jwtsecret=/shared/jwt.txt \
+  --rollup.sequencerhttp="$SEQUENCER_HTTP" \
   --rollup.disabletxpoolgossip=true \
   --port="${PORT__EXECUTION_P2P:-30303}" \
   --discovery.port="${PORT__EXECUTION_P2P:-30303}" \
