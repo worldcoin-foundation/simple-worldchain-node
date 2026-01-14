@@ -10,15 +10,18 @@ A simple docker compose script for launching full / archive node for World Chain
 
 ### World Chain Mainnet
 
-- 16GB+ RAM
-- \>16TB SSD (NVME Required)
-- 100mb/s+ Download
+- 4+ CPU Cores (Prioritize single-thread performance over core count)
+- 16GB+ RAM (More is better)
+- Storage:
+    - \>4TB NVMe SSD (Reth, Geth with Path-Based Storage)
+    - \>16TB NVMe SSD (Geth with Hash-Based Storage)
+- 100mbps+ Download Speed
 
 ### World Chain Sepolia
 
 - 16GB+ RAM
-- \>1TB SSD (NVME Highly Recommended)
-- 100mb/s+ Download
+- \>1TB NVMe SSD
+- 100mbps+ Download Speed
 
 ## Installation and Configuration
 
@@ -91,7 +94,7 @@ Open `.env` with your editor of choice.
     * `worldchain-sepolia` - World Chain Sepolia
 * **COMPOSE_PROFILES** - Choose which Execution Client you want to run:
     * `geth` - op-geth, the default option.
-    * `reth` - op-reth, an alternate Execution Client focused on speed. Only usable as an Archive node, but uses less storage than `geth`.
+    * `reth` - op-reth, an alternate Execution Client focused on speed. Recommended for archive nodes, unless the `eth_getProof` RPC method is required.
 * **GETH_NODE_TYPE** - Choose the type of node you want to run (only applicable to `geth`):
     * `full` (Full node) - A Full node contains a few recent blocks without historical states.
     * `archive` (Archive node) - An Archive node stores the complete history of the blockchain, including historical states.
@@ -183,23 +186,6 @@ Will shut down the node and WIPE ALL DATA. Proceed with caution!
 
 ## Monitoring
 
-### Estimate remaining sync time
-
-Run progress.sh to estimate remaining sync time and speed.
-
-```sh
-./progress.sh
-```
-
-This will show the sync speed in blocks per minute and the time until sync is completed.
-
-```
-Chain ID: 480
-Please wait
-Blocks per minute: ...
-Hours until sync completed: ...
-```
-
 ### Grafana dashboard
 
 Grafana is exposed at [http://localhost:3000](http://localhost:3000) and comes with two pre-loaded dashboards, one each for `op-geth` and `op-reth`.
@@ -221,5 +207,5 @@ Use the following login details to access the dashboard:
 
 If you experience "walking back L1Block with curr=0x0000...:0 next=0x0000...:0" for a long time after the Ecotone upgrade, consider these fixes:
 1. Wait for a few minutes. This issue usually resolves itself after some time.
-2. Restart docker compose: `docker compose down` and `docker compose up -d --build`
+2. Restart docker compose: `docker compose down` and `docker compose up -d`
 3. If it's still not working, try setting `GETH_SYNCMODE=full` in .env and restart docker compose
