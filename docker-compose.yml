@@ -70,7 +70,7 @@ services:
       - prometheus_data:/prometheus
 
   grafana:
-    image: grafana/grafana:9.3.0
+    image: grafana/grafana:12.3
     restart: unless-stopped
     env_file:
       -  ./envs/common/grafana.env
