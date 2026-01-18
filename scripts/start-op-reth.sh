@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-#set chain name for op-reth config
+# set chain name for op-reth config
 if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
   export CHAIN_NAME="worldchain"
 else
@@ -28,3 +28,5 @@ exec op-reth node \
   --rollup.sequencer-http=https://${NETWORK_NAME}-sequencer.g.alchemy.com \
   --rollup.disable-tx-pool-gossip \
   --port="${PORT__EXECUTION_P2P:-30303}" \
+  $( [ "$NODE_TYPE" = "full" ] && echo --full || { [ "$NODE_TYPE" = "minimal" ] && echo --minimal; } ) `# sets --full or --minimal based on NODE_TYPE` \
+
