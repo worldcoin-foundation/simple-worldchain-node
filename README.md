@@ -95,9 +95,10 @@ Open `.env` with your editor of choice.
 * **COMPOSE_PROFILES** - Choose which Execution Client you want to run:
     * `geth` - op-geth, the default option.
     * `reth` - op-reth, an alternate Execution Client focused on speed. Recommended for archive nodes, unless the `eth_getProof` RPC method is required.
-* **GETH_NODE_TYPE** - Choose the type of node you want to run (only applicable to `geth`):
+* **NODE_TYPE** - Choose the type of node you want to run:
     * `full` (Full node) - A Full node contains a few recent blocks without historical states.
     * `archive` (Archive node) - An Archive node stores the complete history of the blockchain, including historical states.
+    * `minimal` (`op-reth` only, minimal node) - A Minimal node prunes as aggressively as possible, using the least storage. Only supported on `op-reth`.
 * **L1_RPC_ENDPOINT** - Specify the endpoint for the RPC of Layer 1 (e.g., Ethereum mainnet). For instance, you can use the free plan of Alchemy for the Ethereum mainnet.
 * **L1_BEACON_RPC_ENDPOINT** - Specify the beacon endpoint of Layer 1. You can use [QuickNode for the beacon endpoint](https://www.quicknode.com). For example: https://xxx-xxx-xxx.quiknode.pro/db55a3908ba7e4e5756319ffd71ec270b09a7dce
 * **L1_RPC_TYPE** - Specify the service provider for the RPC endpoint you've chosen in the previous step. The available options are:
