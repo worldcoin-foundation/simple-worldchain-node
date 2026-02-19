@@ -22,7 +22,7 @@ services:
     profiles: ["geth"]
 
   op-reth:
-    image: ghcr.io/paradigmxyz/op-reth:v1.10.2
+    image: ghcr.io/worldcoin/world-chain:v1.10.1
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
