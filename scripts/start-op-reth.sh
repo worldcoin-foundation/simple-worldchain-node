@@ -8,7 +8,7 @@ else
   export CHAIN_NAME="$NETWORK_NAME"
 fi
 
-exec op-reth node \
+exec world-chain node \
   --datadir=/data \
   --ws \
   --ws.origins="*" \
