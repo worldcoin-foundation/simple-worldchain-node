@@ -15,7 +15,7 @@ if [ -z "$( ls -A '/data' )" ] && [ "$( uname -m )" = "x86_64" ]; then
   else
     export BUCKET="world-chain-testnet-snapshots"
   fi
-  if [ "$NODE_TYPE" = "full" ]; then
+  if [ "$NODE_TYPE" = "full" ] || [ "$NODE_TYPE" = "minimal" ]; then
     export FILE_NAME="reth_full.tar.lz4"
   else
     export FILE_NAME="reth_archive.tar.lz4"
