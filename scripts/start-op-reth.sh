@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -e
 
 # set chain name for op-reth config
 if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
@@ -9,7 +9,13 @@ else
 fi
 
 # download snapshot if datadir is empty
-if [ -z "$( ls -A '/data' )" ] && [ "$( uname -m )" = "x86_64" ]; then
+if [ "$DOWNLOAD_SNAPSHOT" = "false" ]; then
+  echo "Snapshot download disabled"
+elif [ "$( ls -A '/data' )" ]; then
+  echo "Skipping snapshot download due to existing datadir"
+elif [ "$( uname -m )" != "x86_64" ]; then
+  echo "Skipping snapshot download due to incompatible CPU architecture"
+else
   if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
     export BUCKET="world-chain-snapshots"
   else
@@ -29,8 +35,6 @@ if [ -z "$( ls -A '/data' )" ] && [ "$( uname -m )" = "x86_64" ]; then
   mv /data/reth/* /data && rm -r /data/reth "${FILE_NAME}"
   echo "Snapshot downloadeded and extracted! Restarting container to proceed to sync."
   exit 0
-else
-  echo "Skipping snapshot download due to existing datadir or non-x86 CPU architecture"
 fi
 
 exec world-chain node \
@@ -53,6 +57,5 @@ exec world-chain node \
   --rollup.sequencer-http=https://${NETWORK_NAME}-sequencer.g.alchemy.com \
   --rollup.disable-tx-pool-gossip \
   --port="${PORT__EXECUTION_P2P:-30303}" \
-  --flashblocks.enabled \
-  $( [ "$NODE_TYPE" = "full" ] && echo --full || { [ "$NODE_TYPE" = "minimal" ] && echo --minimal; } ) `# sets --full or --minimal based on NODE_TYPE` \
-
+  $( ( [ "$NODE_TYPE" = "full" ] && echo --full ) || ( [ "$NODE_TYPE" = "minimal" ] && echo --minimal ) ) \
+  $( [ "$FLASHBLOCKS_ENABLED" = "true" ] && echo --flashblocks.enabled ) \

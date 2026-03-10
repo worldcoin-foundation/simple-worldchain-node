@@ -8,19 +8,11 @@ A simple docker compose script for launching full / archive node for World Chain
 
 ## Recommended Hardware
 
-### World Chain Mainnet
-
-- 4+ CPU Cores (Prioritize single-thread performance over core count)
-- 16GB+ RAM (More is better)
+- 8+ CPU Cores (Prioritize single-thread performance over core count)
+- 32GB+ RAM (More is better)
 - Storage:
     - \>4TB NVMe SSD (Reth, Geth with Path-Based Storage)
     - \>16TB NVMe SSD (Geth with Hash-Based Storage)
-- 100mbps+ Download Speed
-
-### World Chain Sepolia
-
-- 16GB+ RAM
-- \>1TB NVMe SSD
 - 100mbps+ Download Speed
 
 ## Installation and Configuration
@@ -109,6 +101,9 @@ Open `.env` with your editor of choice.
 
 ### Optional configurations
 
+* **FLASHBLOCKS_ENABLED** - Enable Flashblocks when using op-reth
+    * `false` - Flashblocks not enabled (Default)
+    * `true` - Flashblocks enabled, only recommended for World Chain Sepolia
 * **GETH_SYNCMODE** - Specify sync mode for the execution client
     * Unspecified - Use default snap sync for full node and full sync for archive node
     * `snap` - Snap Sync (Default)
