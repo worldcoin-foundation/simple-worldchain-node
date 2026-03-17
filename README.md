@@ -85,8 +85,8 @@ Open `.env` with your editor of choice.
     * `worldchain-mainnet` - World Chain Mainnet
     * `worldchain-sepolia` - World Chain Sepolia
 * **COMPOSE_PROFILES** - Choose which Execution Client you want to run:
-    * `geth` - op-geth, the default option.
-    * `reth` - op-reth, an alternate Execution Client focused on speed. Recommended for archive nodes, unless the `eth_getProof` RPC method is required.
+    * `reth` - op-reth with World Chain-specific customizations. This is the default option.
+    * `geth` - op-geth, support ending on May 31, 2026.
 * **NODE_TYPE** - Choose the type of node you want to run:
     * `full` (Full node) - A Full node contains a few recent blocks without historical states.
     * `archive` (Archive node) - An Archive node stores the complete history of the blockchain, including historical states.
