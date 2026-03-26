@@ -34,7 +34,7 @@ else
   echo "Snapshot downloaded, extracting..."
   tar --use-compress-program="lz4 -d" -xf "${FILE_NAME}"
   mv /data/reth/* /data && rm -r /data/reth "${FILE_NAME}"
-  echo "Snapshot downloadeded and extracted! Restarting container to proceed to sync."
+  echo "Snapshot downloaded and extracted! Restarting container to proceed to sync."
   exit 0
 fi
 
