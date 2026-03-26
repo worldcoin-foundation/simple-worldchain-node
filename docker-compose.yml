@@ -61,7 +61,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.10.0
     restart: unless-stopped
     env_file:
       - .env
