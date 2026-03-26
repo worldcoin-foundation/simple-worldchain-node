@@ -30,7 +30,7 @@ else
 
   cd /data
   echo "Downloading $NETWORK_NAME $NODE_TYPE snapshot, please be patient!"
-  aws s3 cp --no-sign-request s3://${BUCKET}/${FILE_NAME} "${FILE_NAME}"
+  aws s3 cp --region eu-central-2 --no-sign-request s3://${BUCKET}/${FILE_NAME} "${FILE_NAME}"
   echo "Snapshot downloaded, extracting..."
   tar --use-compress-program="lz4 -d" -xf "${FILE_NAME}"
   mv /data/reth/* /data && rm -r /data/reth "${FILE_NAME}"
