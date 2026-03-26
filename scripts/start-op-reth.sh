@@ -15,6 +15,7 @@ elif [ "$( ls -A '/data' )" ]; then
   echo "Skipping snapshot download due to existing datadir"
 elif [ "$( uname -m )" != "x86_64" ]; then
   echo "Skipping snapshot download due to incompatible CPU architecture"
+  echo "Run `export DOCKER_DEFAULT_PLATFORM=linux/amd64` before `docker compose up` to switch to a compatible mode for this terminal session"
 else
   if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
     export BUCKET="world-chain-snapshots"
