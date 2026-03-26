@@ -13,8 +13,8 @@ services:
       - shared:/shared
       - op_geth:/data
     ports:
-      - ${PORT__EXECUTION_HTTP:-9993}:8545
-      - ${PORT__EXECUTION_WS:-9994}:8546
+      - ${PORT__EXECUTION_HTTP:-8545}:8545
+      - ${PORT__EXECUTION_WS:-8546}:8546
       - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/udp
       - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/tcp
     extra_hosts:
@@ -27,8 +27,8 @@ services:
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
     ports:
-      - ${PORT__EXECUTION_HTTP:-9993}:8545
-      - ${PORT__EXECUTION_WS:-9994}:8546
+      - ${PORT__EXECUTION_HTTP:-8545}:8545
+      - ${PORT__EXECUTION_WS:-8546}:8546
       - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/udp
       - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/tcp
     volumes:
