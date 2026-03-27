@@ -1,9 +1,16 @@
 #!/bin/sh
 set -e
 
+# compatibility for GETH_NODE_TYPE -> NODE_TYPE, default to "full" if not set
+if [ -n "$GETH_NODE_TYPE" ]; then
+  export NODE_TYPE="$GETH_NODE_TYPE"
+elif [ -z "$NODE_TYPE" ]; then
+  export NODE_TYPE="full"
+fi
+
 # Determine syncmode based on GETH_NODE_TYPE
 if [ -z "$GETH_SYNCMODE" ]; then
-  if [ "$GETH_NODE_TYPE" = "full" ]; then
+  if [ "$NODE_TYPE" = "full" ]; then
     export GETH_SYNCMODE="snap"
   else
     export GETH_SYNCMODE="full"
@@ -12,7 +19,7 @@ fi
 
 # Determine history.state on GETH_NODE_TYPE
 # Only relevant when using path-based storage
-if [ "$GETH_NODE_TYPE" = "full" ] && [ "$GETH_STATE_SCHEME" != "hash" ] ; then
+if [ "$NODE_TYPE" = "full" ] && [ "$GETH_STATE_SCHEME" != "hash" ] ; then
   export GETH_HISTORY_STATE="90000"
 else
   export GETH_HISTORY_STATE="0"
@@ -37,7 +44,7 @@ exec geth \
   --metrics.influxdb.endpoint=http://influxdb:8086 \
   --metrics.influxdb.database=opgeth \
   --syncmode="$GETH_SYNCMODE" \
-  --gcmode="$GETH_NODE_TYPE" \
+  --gcmode="$NODE_TYPE" \
   --state.scheme="$GETH_STATE_SCHEME" \
   --history.state="$GETH_HISTORY_STATE" \
   --authrpc.vhosts="*" \
