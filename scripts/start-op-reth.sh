@@ -11,7 +11,7 @@ fi
 # download snapshot if datadir is empty
 if [ "$DOWNLOAD_SNAPSHOT" = "false" ]; then
   echo "Snapshot download disabled"
-elif [ "$( ls -A '/data' )" ]; then
+elif [ -f "/data/reth.toml" ]; then
   echo "Skipping snapshot download due to existing datadir"
 elif [ "$( uname -m )" != "x86_64" ]; then
   echo "Skipping snapshot download due to incompatible CPU architecture"
