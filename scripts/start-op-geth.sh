@@ -25,6 +25,13 @@ else
   export GETH_HISTORY_STATE="0"
 fi
 
+# set jovian timestamp
+if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
+  export JOVIAN_TIMESTAMP=1777593600
+else
+  export JOVIAN_TIMESTAMP=1777161600
+fi
+
 # Start op-geth.
 exec geth \
   --datadir=/data \
@@ -56,3 +63,4 @@ exec geth \
   --port="${PORT__EXECUTION_P2P:-30303}" \
   --discovery.port="${PORT__EXECUTION_P2P:-30303}" \
   --op-network="$NETWORK_NAME" \
+  --override.jovian=$JOVIAN_TIMESTAMP \
