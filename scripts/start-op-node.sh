@@ -1,13 +1,6 @@
 #!/bin/sh
 set -e
 
-# set jovian timestamp
-if [ "$NETWORK_NAME" = "worldchain-mainnet" ]; then
-  export JOVIAN_TIMESTAMP=1777593600
-else
-  export JOVIAN_TIMESTAMP=1777161600
-fi
-
 # Start op-node.
 exec op-node \
   --l1=$L1_RPC_ENDPOINT \
@@ -26,4 +19,3 @@ exec op-node \
   --syncmode=execution-layer \
   --network=$NETWORK_NAME \
   --p2p.useragent=worldchain \
-  --override.jovian=$JOVIAN_TIMESTAMP \
