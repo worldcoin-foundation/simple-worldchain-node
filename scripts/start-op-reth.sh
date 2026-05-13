@@ -57,7 +57,7 @@ exec world-chain node \
   --authrpc.port=8551 \
   --authrpc.jwtsecret=/shared/jwt.txt \
   --metrics=0.0.0.0:6060 \
-  --chain="/chainconfig/genesis.json" \
+  --chain=${CHAIN_NAME} \
   --rollup.sequencer-http=https://${NETWORK_NAME}-sequencer.g.alchemy.com \
   --rollup.disable-tx-pool-gossip \
   --port="${PORT__EXECUTION_P2P:-30303}" \
