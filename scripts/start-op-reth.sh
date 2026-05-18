@@ -35,7 +35,7 @@ else
     exit 1
   else
     echo "Downloading $NETWORK_NAME $NODE_TYPE snapshot, please be patient!"
-    s3fcp http https://${BUCKET}.s3.eu-central-2.amazonaws.com/${FILE_NAME} | lz4 -dc | tar --strip-components=1 -xvf -
+    s3fcp http https://${BUCKET}.s3.eu-central-2.amazonaws.com/${FILE_NAME} | lz4 -dc | tar --strip-components=1 -xf -
   fi
   echo "Snapshot downloaded and extracted! Restarting container to proceed to sync."
   exit 0
