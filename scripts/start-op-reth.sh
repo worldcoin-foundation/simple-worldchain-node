@@ -43,16 +43,16 @@ fi
 
 exec world-chain node \
   --datadir=/data \
-  --ws \
-  --ws.origins="*" \
-  --ws.addr=0.0.0.0 \
-  --ws.port=8546 \
-  --ws.api=debug,eth,net,txpool \
   --http \
   --http.corsdomain="*" \
   --http.addr=0.0.0.0 \
   --http.port=8545 \
   --http.api=debug,eth,net,txpool \
+  --ws \
+  --ws.origins="*" \
+  --ws.addr=0.0.0.0 \
+  --ws.port=8546 \
+  --ws.api=debug,eth,net,txpool \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
   --authrpc.jwtsecret=/shared/jwt.txt \
