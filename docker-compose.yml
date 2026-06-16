@@ -1,27 +1,6 @@
 services:
 
-  op-geth:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101702.2
-    restart: unless-stopped
-    stop_grace_period: 5m
-    entrypoint: /scripts/start-op-geth.sh
-    env_file:
-      - .env
-    volumes:
-      - ./envs/${NETWORK_NAME}/config:/chainconfig
-      - ./scripts/:/scripts
-      - shared:/shared
-      - op_geth:/data
-    ports:
-      - ${PORT__EXECUTION_HTTP:-8545}:8545
-      - ${PORT__EXECUTION_WS:-8546}:8546
-      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/udp
-      - ${PORT__EXECUTION_P2P:-30303}:${PORT__EXECUTION_P2P:-30303}/tcp
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    profiles: ["geth"]
-
-  op-reth:
+  world-chain:
     image: ghcr.io/worldcoin/world-chain:v2.2.0-1
     restart: unless-stopped
     stop_grace_period: 5m
@@ -40,7 +19,6 @@ services:
       - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    profiles: ["reth"]
 
   op-node:
     image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.18.0
@@ -54,8 +32,8 @@ services:
       - ./scripts/:/scripts
       - shared:/shared
     ports:
-      - ${PORT__CONSENSUS_P2P:-9222}:9222/udp
-      - ${PORT__CONSENSUS_P2P:-9222}:9222/tcp
+      - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/udp
+      - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/tcp
       - ${PORT__CONSENSUS_HTTP:-9545}:9545
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -81,19 +59,8 @@ services:
     ports:
       - ${PORT__GRAFANA:-3000}:3000
 
-  influxdb:
-    image: influxdb:1.8
-    restart: unless-stopped
-    env_file:
-      - ./envs/common/influxdb.env
-    volumes:
-      - ./docker/influxdb/influx_init.iql:/docker-entrypoint-initdb.d/influx_init.iql
-      - influxdb_data:/var/lib/influxdb
-
 volumes:
   prometheus_data:
   grafana_data:
-  influxdb_data:
   shared:
-  op_geth:
   op_reth:
