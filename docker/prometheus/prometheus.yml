@@ -8,4 +8,4 @@ scrape_configs:
     - targets: ['op-node:7300']
   - job_name: 'op-reth'
     static_configs:
-    - targets: ['op-reth:6060']
+    - targets: ['world-chain:6060']
