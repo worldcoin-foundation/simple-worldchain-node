@@ -1,7 +1,7 @@
 services:
 
   world-chain:
-    image: ghcr.io/worldcoin/world-chain:v2.3.0
+    image: ghcr.io/worldcoin/world-chain:v2.4.0
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
