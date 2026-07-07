@@ -42,6 +42,7 @@ services:
       - --syncmode=execution-layer
       - --network=$NETWORK_NAME
       - --p2p.useragent=worldchain
+      - --syncmode.offset-el-safe=4h
     env_file:
       - .env
     volumes:
