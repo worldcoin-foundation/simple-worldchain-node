@@ -130,4 +130,14 @@ Will shut down the node and WIPE ALL DATA. Proceed with caution!
 
 Grafana is exposed at [http://localhost:3000](http://localhost:3000) and comes with a pre-loaded dashboard for `world-chain`.
 
-- [OP-Reth Dashboard](http://localhost:3000/d/2k8BXz24x/op-reth-dashboard)
+- [World Chain Node Operations](http://localhost:3000/d/2k8BXz24x/world-chain-node-operations)
+
+The dashboard is tailored to the World Chain and OP Node versions in this Compose stack. It includes:
+
+- execution-layer and OP Node synchronization and peering
+- MDBX, RocksDB, and static-file storage and database statistics
+- Engine API latency, gas, execution, state-root, cache, and pruning performance
+- Flashblocks validation/P2P metrics and BAL-aware validation comparisons
+- World Chain and OP Node process CPU, memory, and operational health signals
+
+The bundled services expose process-level resource metrics. Host-wide CPU saturation, memory pressure, disk space, disk latency, and NVMe health require a host metrics exporter and are intentionally not inferred by this dashboard.
