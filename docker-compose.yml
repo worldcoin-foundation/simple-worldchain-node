@@ -1,7 +1,7 @@
 services:
 
   world-chain:
-    image: ghcr.io/worldcoin/world-chain:v2.3.0
+    image: ghcr.io/worldcoin/world-chain:v2.4.0
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
@@ -21,10 +21,28 @@ services:
       - "host.docker.internal:host-gateway"
 
   op-node:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.18.2
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.2
     restart: unless-stopped
     stop_grace_period: 5m
-    entrypoint: /scripts/start-op-node.sh
+    command:
+      - op-node
+      - --l1=$L1_RPC_ENDPOINT
+      - --l2=ws://world-chain:8551
+      - --l2.enginekind=reth
+      - --rpc.addr=0.0.0.0
+      - --rpc.port=9545
+      - --l2.jwt-secret=/shared/jwt.txt
+      - --l1.trustrpc
+      - --l1.rpckind=$L1_RPC_TYPE
+      - --l1.beacon=$L1_BEACON_RPC_ENDPOINT
+      - --metrics.enabled
+      - --metrics.addr=0.0.0.0
+      - --metrics.port=7300
+      - --p2p.listen.tcp=${PORT__CONSENSUS_P2P:-9222}
+      - --syncmode=execution-layer
+      - --network=$NETWORK_NAME
+      - --p2p.useragent=worldchain
+      - --syncmode.offset-el-safe=4h
     env_file:
       - .env
     volumes:
