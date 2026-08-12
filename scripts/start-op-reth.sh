@@ -37,13 +37,9 @@ else
     echo "Downloading $NETWORK_NAME $NODE_TYPE snapshot, please be patient!"
     s3fcp http https://${BUCKET}.s3.eu-central-2.amazonaws.com/${FILE_NAME} | lz4 -dc | tar --strip-components=1 -xf -
   fi
-  echo "Snapshot downloaded and extracted! Migrating to storage v2..."
+  echo "Snapshot downloaded and extracted! Migrating to storage v2 if needed..."
   cd /app
   world-chain db --datadir /data migrate-v2 --chain ${CHAIN_NAME}
-  if [ "$NODE_TYPE" = "minimal" ]; then
-    echo "Storage v2 migration complete, pruning to minimal node..."
-    world-chain prune --datadir /data --chain ${CHAIN_NAME}
-  fi
   echo "Setup complete! Starting world-chain..."
 fi
 
