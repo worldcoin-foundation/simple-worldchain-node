@@ -43,12 +43,14 @@ services:
       - --network=$NETWORK_NAME
       - --p2p.useragent=worldchain
       - --syncmode.offset-el-safe=4h
+      - --p2p.peerstore.path=/db/peerstore
     env_file:
       - .env
     volumes:
       - ./envs/${NETWORK_NAME}/config:/chainconfig
       - ./scripts/:/scripts
       - shared:/shared
+      - op_node:/db
     ports:
       - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/udp
       - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/tcp
@@ -82,3 +84,4 @@ volumes:
   grafana_data:
   shared:
   op_reth:
+  op_node:
