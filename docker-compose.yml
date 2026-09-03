@@ -1,7 +1,7 @@
 services:
 
   world-chain:
-    image: ghcr.io/worldcoin/world-chain:v2.4.2
+    image: ghcr.io/worldcoin/world-chain:v2.4.3
     restart: unless-stopped
     stop_grace_period: 5m
     entrypoint: /scripts/start-op-reth.sh
@@ -21,7 +21,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   op-node:
-    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.2
+    image: us-docker.pkg.dev/oplabs-tools-artifacts/images/op-node:v1.19.5
     restart: unless-stopped
     stop_grace_period: 5m
     command:
@@ -40,15 +40,17 @@ services:
       - --metrics.port=7300
       - --p2p.listen.tcp=${PORT__CONSENSUS_P2P:-9222}
       - --syncmode=execution-layer
-      - --network=$NETWORK_NAME
+      - --rollup.config=/chainconfig/rollup.json
       - --p2p.useragent=worldchain
       - --syncmode.offset-el-safe=4h
+      - --p2p.peerstore.path=/db/peerstore
     env_file:
       - .env
     volumes:
       - ./envs/${NETWORK_NAME}/config:/chainconfig
       - ./scripts/:/scripts
       - shared:/shared
+      - op_node:/db
     ports:
       - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/udp
       - ${PORT__CONSENSUS_P2P:-9222}:${PORT__CONSENSUS_P2P:-9222}/tcp
@@ -82,3 +84,4 @@ volumes:
   grafana_data:
   shared:
   op_reth:
+  op_node:
